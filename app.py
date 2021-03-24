@@ -15,7 +15,7 @@ hue_bridge_ip = os.environ["hue_bridge_ip"]
 hue_light_name = os.environ["hue_light_name"]
 
 ## Hue Bridge and Light
-b = Bridge(hue_bridge_ip) #You can find your IP from within the iOS/Android Hue app at Settings> Hue Bridges> select "i" next to your bridge
+b = Bridge(hue_bridge_ip)
 light = hue_light_name
 
 # If the app is not registered and the button is not pressed, press the button on your hue bridge and call connect() (this only needs to be run a single time)
@@ -62,11 +62,11 @@ while True:
         set_color("yellow",light)
     elif ticket_count > 15:
         set_color("red",light)
-    print "loop has run, dis many times: " + str(counter)
+    print("loop has run, dis many times: " + str(counter))
     counter += 1
-    print "current ticket count is: " + str(ticket_count)
-    print '''Sleeping for 15 seconds
+    print("current ticket count is: " + str(ticket_count))
+    print('''Sleeping for 15 seconds
     z
     zz
-    zzz'''
+    zzz''')
     sleep(15)
