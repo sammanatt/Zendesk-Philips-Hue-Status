@@ -4,12 +4,13 @@ import json
 import requests
 import os
 
+
 # Load environment file, assign variables
 from dotenv import load_dotenv
 load_dotenv()
 
-zd_user = os.environ["zendesk_username"]
-zd_token = os.environ["zendesk_password"]
+zd_user = os.environ["zd_user"]
+zd_token = os.environ["zd_token"]
 ticket_view_id = os.environ["ticket_view_id"]
 hue_bridge_ip = os.environ["hue_bridge_ip"]
 hue_light_name = os.environ["hue_light_name"]
@@ -47,13 +48,15 @@ def set_color(color,light,brightness=None):
                                    color_map[color][2]]}
                 )
 
+
 # Reset color to purple; quick visual to know hue is connected and starting script.
 set_color("purple",light)
 sleep(1)
 counter = 1
 while True:
     url = 'https://objectrocket.zendesk.com/api/v2/views/44393853/count.json'
-    get_ticket_view = requests.get(url, auth=(zd_user, zd_token))
+    headers = {'Content-Type': 'application/json'}
+    get_ticket_view = requests.get(url, auth=(zd_user, zd_token), headers=headers)
     response_ticket_view = get_ticket_view.json()
     ticket_count = response_ticket_view['view_count']['value']
     if ticket_count < 10:
