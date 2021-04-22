@@ -8,8 +8,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-zendesk_username = os.environ["zendesk_username"]
-zendesk_password = os.environ["zendesk_password"]
+zd_user = os.environ["zendesk_username"]
+zd_token = os.environ["zendesk_password"]
 ticket_view_id = os.environ["ticket_view_id"]
 hue_bridge_ip = os.environ["hue_bridge_ip"]
 hue_light_name = os.environ["hue_light_name"]
@@ -53,7 +53,7 @@ sleep(1)
 counter = 1
 while True:
     url = 'https://objectrocket.zendesk.com/api/v2/views/44393853/count.json'
-    get_ticket_view = requests.get(url, auth=(zendesk_username, zendesk_password))
+    get_ticket_view = requests.get(url, auth=(zd_user, zd_token))
     response_ticket_view = get_ticket_view.json()
     ticket_count = response_ticket_view['view_count']['value']
     if ticket_count < 10:
@@ -62,7 +62,7 @@ while True:
         set_color("yellow",light)
     elif ticket_count > 15:
         set_color("red",light)
-    print("loop has run, dis many times: " + str(counter))
+    print(f"loop has run, {str(counter)} times")
     counter += 1
     print("current ticket count is: " + str(ticket_count))
     print('''Sleeping for 15 seconds
